@@ -1,0 +1,114 @@
+{
+  "name": "strest",
+  "displayName": "stREST Client",
+  "description": "stREST Client for Visual Studio Code",
+  "version": "0.0.1",
+  "publisher": "jgroom",
+  "author": {
+    "name": "Jeff Groom",
+    "email": "jgroom33@outlook.com"
+  },
+  "icon": "images/strest.png",
+  "galleryBanner": {
+    "color": "#C80000",
+    "theme": "dark"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jgroom33/vscode-strest-client/issues",
+    "email": "jgroom33@outlook.com"
+  },
+  "homepage": "https://github.com/jgroom33/vscode-strest-client/blob/master/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jgroom33/vscode-strest-client.git"
+  },
+  "engines": {
+    "vscode": "^1.28.0"
+  },
+  "categories": [
+    "Other",
+    "Snippets",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "REST",
+    "Http",
+    "strest"
+  ],
+  "activationEvents": [
+    "onLanguage:strest"
+  ],
+  "main": "./out/src/extension",
+  "contributes": {
+    "languages": [
+      {
+        "id": "strest",
+        "aliases": [
+          "stREST",
+          "STREST"
+        ],
+        "extensions": [
+          ".strest.yml",
+          ".strest.yaml"
+        ],
+        "configuration": "./language-configuration-strest.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "strest",
+        "scopeName": "source.strest.yaml",
+        "path": "./syntaxes/strest.tmLanguage"
+      }
+    ],
+    "snippets": [
+    ],
+    "commands": [
+      {
+        "command": "strest.request",
+        "title": "Execute stREST Call"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+      ],
+      "editor/context": [
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "strest.request",
+        "key": "ctrl+alt+r",
+        "mac": "cmd+alt+r",
+        "when": "editorTextFocus && editorLangId == 'strest'"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "REST Client configuration",
+      "properties": {
+      }
+    },
+    "configurationDefaults": {
+      "[strest]": {
+        "editor.quickSuggestions": {
+          "other": true,
+          "comments": false,
+          "strings": true
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "tsc -p ./",
+    "compile": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "typescript": "^2.9.2",
+    "vscode": "^1.0.0"
+  },
+  "dependencies": {
+
+  }
+}

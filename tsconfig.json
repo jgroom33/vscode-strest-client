@@ -4,7 +4,6 @@
         "target": "es6",
         "outDir": "out",
         "noUnusedLocals": true,
-        "experimentalDecorators": true,
         "lib": [
             "es2016"
         ],

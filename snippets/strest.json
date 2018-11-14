@@ -1,3 +1,60 @@
 {
-    
+    "request": {
+        "prefix": "request",
+        "body": [
+            "request:",
+            "  url: ${1:www.strest.com}",
+            "  method: ${2|GET,POST,DELETE,PUT,PATCH,DELETE|}"
+        ],
+        "description": "Add new request"
+    },
+    "postData": {
+        "prefix": "postData",
+        "body": [
+            "postData:",
+            "  mimeType: ${1|application/json,text/plain|}",
+            "  text:",
+            "    ${2:foo}: ${3:bar}"
+        ],
+        "description": "Adds postData to POST request"
+    },
+    "validate": {
+        "prefix": "validate",
+        "body": [
+            "validate:",
+            "- jsonpath: status",
+            "  regex: 2\\d+",
+            "- jsonpath: ${1:content.path.to.var}",
+            "  type: ${2|string,boolean,object,number,array,\"null\",string.hex,string.email,string.ip,string.url,string.uri,string.lowercase,string.uppercase|}",
+            "- jsonpath: ${3:content.path.to.var}",
+            "  expect: ${4:expect_value}"
+        ],  
+        "description": "Adds validate Section to request"
+    },
+    "headers": {
+        "prefix": "headers",
+        "body": [
+            "headers:",
+            "- name: ${1:Authorization}",
+            "  value: ${2:Bearer foo}"
+        ],  
+        "description": "Adds headers Section to request"
+    },
+    "queryString": {
+        "prefix": "queryString",
+        "body": [
+            "queryString:",
+            "- name: ${1:query_param}",
+            "  value: ${2:query_value}"
+        ],  
+        "description": "Adds queryString Section to request"
+    },
+    "if": {
+        "prefix": "if",
+        "body": [
+            "if:",
+            "  operand: <$ ${1:some_request.status} $>",
+            "  equals: ${2:expect_value}"
+        ]
+    }
 }

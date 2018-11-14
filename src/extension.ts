@@ -1,11 +1,6 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { commands, workspace, window, ExtensionContext, ViewColumn, StatusBarAlignment, StatusBarItem, TextDocument } from 'vscode';
+import { workspace, window} from 'vscode';
 import Window = vscode.window;
-import Document = vscode.TextDocument;
-import TextEditor = vscode.TextEditor;
-import Uri = vscode.Uri;
 const cp = require('child_process')
 
 const yamlParser = require('./yaml-parser');
@@ -14,7 +9,7 @@ var path = require('path');
 var fs = require('fs');
 const { parseYaml } = yamlParser;
 
-export function activate(ctx: ExtensionContext) {
+export function activate(context: vscode.ExtensionContext) {
     console.log('stREST is now active!');
     vscode.commands.registerCommand('strest.request', request);
 }
@@ -53,11 +48,12 @@ var getFullPath = (root, filePath) => {
 function request() {
 
     let e = Window.activeTextEditor;
-    let d = e.document;
-    let sel = e.selections;
-
     let foundPath = getParsedFullKey();
     let strestKey = ""
+    let outpuChannel = vscode.window.createOutputChannel("stREST");
+    outpuChannel.clear()
+    outpuChannel.show(true)
+
     if (!foundPath) {
         window.showErrorMessage(`Could not calculate YAML path`);
         return;
@@ -68,7 +64,7 @@ function request() {
             return;
         }
         strestKey = splitted[1]
-        console.log(`YAML Object path ${foundPath} and key ${strestKey}`)
+        outpuChannel.append(`Successfully parsed YAM. Found YAML Object path ${foundPath} and key ${strestKey}`)
     }
     var strestFilename = e.document.fileName;
     var historyFilename = getFullPath(vscode.workspace.rootPath, "strest_history.json");
@@ -79,11 +75,8 @@ function request() {
         vscode.window.showInformationMessage(`Could not find ${historyFilename}!`);
     }
 
-    let outpuChannel = vscode.window.createOutputChannel("stREST");
-    outpuChannel.clear()
-    outpuChannel.show(true)
     let commandExec = `cd ${vscode.workspace.rootPath} && node /Users/jgroom/Downloads/18.02.2/shared/strest/dist/main.js ${strestFilename} -k ${strestKey} -l -s`
-    console.log(commandExec)
+    outpuChannel.append(`Executing command ${commandExec}`)
     cp.exec(commandExec, (err, stdout, stderr) => {
         outpuChannel.append(stdout)
         outpuChannel.append(stderr)
@@ -91,16 +84,20 @@ function request() {
             outpuChannel.append(`error: ${err}`)
         }
     })
-    // .then(() => {
-        workspace.openTextDocument(historyFilename).then((textDocument) => {
-            if (!textDocument) {
-                window.showErrorMessage(`Could not open ${historyFilename}!`);
+    workspace.openTextDocument(historyFilename).then((textDocument) => {
+        if (!textDocument) {
+            window.showErrorMessage(`Could not open ${historyFilename}!`);
+        }
+        window.showTextDocument(textDocument, { viewColumn: previewColumn, preserveFocus: false, preview: false }).then((editor) => {
+            if (!editor) {
+                window.showErrorMessage(`Could not show ${historyFilename}!`);
             }
-            window.showTextDocument(textDocument, { viewColumn: previewColumn, preserveFocus: false, preview: false }).then((editor) => {
-                if (!editor) {
-                    window.showErrorMessage(`Could not show ${historyFilename}!`);
-                }
-            });
         });
-    // });
+    }).then(() => {
+        window.showTextDocument(e.document.uri, { viewColumn: activeColumn, preserveFocus: false, preview: false }).then((editor) => {
+            if (!editor) {
+                window.showErrorMessage(`Could not show ${historyFilename}!`);
+            }
+        });
+    })
 }

@@ -72,6 +72,10 @@
       {
         "command": "strest.request",
         "title": "Execute stREST Call"
+      },
+      {
+        "command": "strest.curlToStrest",
+        "title": "Convert curl (in clipboard) to strest(har)"
       }
     ],
     "menus": {},
@@ -111,5 +115,7 @@
     "vscode": "^1.0.17"
   },
   "dependencies": {
+    "curlconverter": "2.3.0",
+    "clipboardy": "1.2.3"
   }
 }

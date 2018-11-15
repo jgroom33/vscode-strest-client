@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
-import { workspace, window} from 'vscode';
+import { workspace, window } from 'vscode';
 import Window = vscode.window;
+const curlconverter = require("curlconverter")
+const clipboardy = require('clipboardy');
 const cp = require('child_process')
 
 const yamlParser = require('./yaml-parser');
@@ -12,6 +14,7 @@ const { parseYaml } = yamlParser;
 export function activate(context: vscode.ExtensionContext) {
     console.log('stREST is now active!');
     vscode.commands.registerCommand('strest.request', request);
+    vscode.commands.registerCommand('strest.curlToStrest', curlToStrest);
 }
 
 function getParsedFullKey() {
@@ -100,4 +103,23 @@ function request() {
             }
         });
     })
+}
+
+function curlToStrest() {
+    let clipboard: string = getClipboard();
+
+    if(clipboard.startsWith('curl')){
+        let converted = curlconverter.toStrest(clipboard)
+        //replace the clipboard contents with the modified version...
+        clipboardy.write(converted).then(() => {
+            vscode.commands.executeCommand('editor.action.clipboardPasteAction')
+        });
+    } else {
+        window.showErrorMessage(`Clipboard does not contain string starting with curl`);
+    }
+}
+
+export function getClipboard()
+{
+	return clipboardy.readSync();
 }

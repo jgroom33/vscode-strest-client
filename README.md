@@ -4,7 +4,9 @@ stREST Client allows you to send HTTP request specified in [stREST](https://gith
 
 ## Main Features
 
-* Send __HTTP request__ in editor and view response (strest_history.json) in a separate pane
+* Send __HTTP requests__ in editor and view response (strest_history.json) in a separate pane
+
+![alt text](images/strest_preview.gif)
 
 ## License
 
@@ -16,4 +18,4 @@ See CHANGELOG [here](CHANGELOG.md)
 
 ## Feedback
 
-Please provide feedback through the [GitHub Issue](https://github.com/jgroom/vscode-strestclient/issues) system, or fork the repository and submit PR.
+Please provide feedback through the [GitHub Issue](https://github.com/jgroom33/vscode-strestclient/issues) system, or fork the repository and submit PR.

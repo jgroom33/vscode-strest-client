@@ -64,7 +64,7 @@ function request() {
             return;
         }
         strestKey = splitted[1]
-        outpuChannel.append(`Successfully parsed YAM. Found YAML Object path ${foundPath} and key ${strestKey}`)
+        outpuChannel.append(`Successfully parsed YAM. Found YAML Object path ${foundPath} and key ${strestKey}\n`)
     }
     var strestFilename = e.document.fileName;
     var historyFilename = getFullPath(vscode.workspace.rootPath, "strest_history.json");
@@ -75,8 +75,8 @@ function request() {
         vscode.window.showInformationMessage(`Could not find ${historyFilename}!`);
     }
 
-    let commandExec = `cd ${vscode.workspace.rootPath} && node /Users/jgroom/Downloads/18.02.2/shared/strest/dist/main.js ${strestFilename} -k ${strestKey} -l -s`
-    outpuChannel.append(`Executing command ${commandExec}`)
+    let commandExec = `cd ${vscode.workspace.rootPath} && strest ${strestFilename} -k ${strestKey} -l -s`
+    outpuChannel.append(`Executing command ${commandExec}\n`)
     cp.exec(commandExec, (err, stdout, stderr) => {
         outpuChannel.append(stdout)
         outpuChannel.append(stderr)

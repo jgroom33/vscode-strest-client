@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { workspace, window } from 'vscode';
 import Window = vscode.window;
+import * as fs from 'fs-extra';
 const curlconverter = require("curlconverter")
 const clipboardy = require('clipboardy');
 const cp = require('child_process')
@@ -75,7 +76,8 @@ function request() {
     const previewColumn = activeColumn + 1
 
     if (!fs.existsSync(historyFilename)) {
-        vscode.window.showInformationMessage(`Could not find ${historyFilename}!`);
+        outpuChannel.append(`Could not find ${historyFilename}! It was created.`);
+        fs.writeFileSync(historyFilename, "{}")
     }
 
     let commandExec = `cd ${vscode.workspace.rootPath} && strest ${strestFilename} -k ${strestKey} -l -s`

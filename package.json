@@ -116,6 +116,7 @@
   },
   "dependencies": {
     "curlconverter": "2.3.0",
-    "clipboardy": "1.2.3"
+    "clipboardy": "1.2.3",
+    "fs-extra": "7.0.1"
   }
 }

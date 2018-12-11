@@ -1,4 +1,4 @@
-# stREST Client
+# vscode stREST Client
 
 stREST Client allows you to send HTTP request specified in [stREST](https://github.com/eykrehbein/strest) and view the response in Visual Studio Code directly.
 
@@ -19,3 +19,5 @@ See CHANGELOG [here](CHANGELOG.md)
 ## Feedback
 
 Please provide feedback through the [GitHub Issue](https://github.com/jgroom33/vscode-strestclient/issues) system, or fork the repository and submit PR.
+
+[market](https://marketplace.visualstudio.com/items?itemName=jgroom.ciena)

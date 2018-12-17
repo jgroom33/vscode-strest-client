@@ -19,7 +19,8 @@ function parseYaml(editor) {
   }
 
   const range = new Range(0, 0, selection.end.line, selectedLine.text.length);
-  const lines = document.getText(range).split('\n');
+  const replaced  = document.getText(range).replace(/(\rn|\n|\r)/g, '\n')
+  const lines = replaced.split('\n');
 
   // Remove the first line of `---`
   lines.shift();

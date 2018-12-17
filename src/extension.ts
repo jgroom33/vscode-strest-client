@@ -80,7 +80,7 @@ function request() {
         fs.writeFileSync(historyFilename, "{}")
     }
 
-    let commandExec = `cd ${vscode.workspace.rootPath} && strest ${strestFilename} -k ${strestKey} -l -s`
+    let commandExec = `strest ${strestFilename} -k ${strestKey} -l ${vscode.workspace.rootPath}/strest_history.json -s ${vscode.workspace.rootPath}/strest_history.json`
     outpuChannel.append(`Executing command ${commandExec}\n`)
     cp.exec(commandExec, (err, stdout, stderr) => {
         outpuChannel.append(stdout)

@@ -2,7 +2,7 @@
   "name": "strest",
   "displayName": "stREST Client",
   "description": "stREST Client for Visual Studio Code",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "jgroom",
   "author": {
     "name": "Jeff Groom",

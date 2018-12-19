@@ -91,7 +91,9 @@ function request() {
     strestFilename = strestFilename.replace(/(\\)/g,'/')
     let commandExec = `strest ${strestFilename} -k ${strestKey} -l ${root}/strest_history.json -s ${root}/strest_history.json`
     outpuChannel.append(`Executing command ${commandExec}\n`)
-    cp.exec(commandExec, (err, stdout, stderr) => {
+    cp.exec(commandExec,{
+        maxBuffer: 2000 * 1024
+        }, (err, stdout, stderr) => {
         outpuChannel.append(stdout)
         outpuChannel.append(stderr)
         if (err) {

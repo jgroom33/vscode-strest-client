@@ -68,19 +68,28 @@ function request() {
             return;
         }
         strestKey = splitted[1]
-        outpuChannel.append(`Successfully parsed YAM. Found YAML Object path ${foundPath} and key ${strestKey}\n`)
+        outpuChannel.append(`Successfully parsed YAML. Found YAML Object path ${foundPath} and key ${strestKey}\n`)
     }
     var strestFilename = e.document.fileName;
-    var historyFilename = getFullPath(vscode.workspace.rootPath, "strest_history.json");
+
+    let root = vscode.workspace.rootPath.toString()
+    // TODO: check for vscode.workspace.rootPath undefined.  it means there is no folder open... only a file
+    var historyFilename = getFullPath(root, "strest_history.json");
     const activeColumn = window.activeTextEditor.viewColumn;
     const previewColumn = activeColumn + 1
 
     if (!fs.existsSync(historyFilename)) {
         outpuChannel.append(`Could not find ${historyFilename}! It was created.`);
         fs.writeFileSync(historyFilename, "{}")
+    } else {
+        outpuChannel.append(`Found ${historyFilename}!\n`);
     }
-
-    let commandExec = `cd ${vscode.workspace.rootPath} && strest ${strestFilename} -k ${strestKey} -l -s`
+    // This is hideous
+    root = root.replace(/(c:)/g,'')
+    root = root.replace(/(\\)/g,'/')
+    strestFilename = strestFilename.replace(/(c:)/g,'')
+    strestFilename = strestFilename.replace(/(\\)/g,'/')
+    let commandExec = `strest ${strestFilename} -k ${strestKey} -l ${root}/strest_history.json -s ${root}/strest_history.json`
     outpuChannel.append(`Executing command ${commandExec}\n`)
     cp.exec(commandExec, (err, stdout, stderr) => {
         outpuChannel.append(stdout)

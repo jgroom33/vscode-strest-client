@@ -2,7 +2,7 @@
   "name": "strest",
   "displayName": "stREST Client",
   "description": "stREST Client for Visual Studio Code",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "publisher": "jgroom",
   "author": {
     "name": "Jeff Groom",
@@ -71,14 +71,37 @@
     "commands": [
       {
         "command": "strest.request",
-        "title": "Execute stREST Call"
+        "title": "Execute stREST Call",
+        "icon": {
+          "light": "./images/strest-icon.png",
+          "dark": "./images/strest-icon.png"
+        }
       },
       {
         "command": "strest.curlToStrest",
-        "title": "Convert curl (in clipboard) to strest(har)"
+        "title": "curl (clipboard) to strest",
+        "icon": {
+          "light": "./images/strest-icon.png",
+          "dark": "./images/strest-icon.png"
+        }
       }
     ],
-    "menus": {},
+    "menus": {
+      "editor/context": [{
+        "when": "resourceLangId == strest",
+        "command": "strest.curlToStrest",
+        "group": "stREST"
+    },{
+      "when": "resourceLangId == strest",
+      "command": "strest.request",
+      "group": "stREST"
+    }],
+      "editor/title": [{
+        "when": "resourceLangId == strest",
+        "command": "strest.request",
+        "group": "navigation"
+      }]
+    },
     "keybindings": [
       {
         "command": "strest.request",
@@ -115,7 +138,7 @@
     "vscode": "^1.0.17"
   },
   "dependencies": {
-    "curlconverter": "2.3.0",
+    "curlconverter": "jgroom33/curlconverter",
     "clipboardy": "1.2.3",
     "fs-extra": "7.0.1",
     "js-yaml": "3.12.1"

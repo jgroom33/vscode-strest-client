@@ -1,3 +1,7 @@
+## 0.1.0 (2019/1/10)
+* Add curlconversion
+* Add context Menus
+
 ## 0.0.7 (2019/1/9)
 * Fix yaml parsing to find closest key
 

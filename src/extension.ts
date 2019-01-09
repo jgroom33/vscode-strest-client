@@ -30,10 +30,7 @@ function getParsedFullKey() {
         if (!parsed) {
             return;
         }
-        return Object.keys(parsed).reduce((result, key) => {
-            result += !result ? parsed[key] : '.' + parsed[key];
-            return result;
-        }, '');
+        return parsed
     }
     return null
 }
@@ -52,23 +49,16 @@ var getFullPath = (root, filePath) => {
 function request() {
 
     let e = Window.activeTextEditor;
-    let foundPath = getParsedFullKey();
-    let strestKey = ""
+    let foundKey = getParsedFullKey();
     let outpuChannel = vscode.window.createOutputChannel("stREST");
     outpuChannel.clear()
     outpuChannel.show(true)
 
-    if (!foundPath) {
+    if (!foundKey) {
         window.showErrorMessage(`Could not calculate YAML path`);
         return;
     } else {
-        var splitted = foundPath.split(".");
-        if (splitted[0] != 'requests') {
-            window.showErrorMessage(`File is not a strest yaml.  Expecting requests instead found: ${splitted[0]}`);
-            return;
-        }
-        strestKey = splitted[1]
-        outpuChannel.append(`Successfully parsed YAML. Found YAML Object path ${foundPath} and key ${strestKey}\n`)
+        outpuChannel.append(`Successfully parsed YAML. Found YAML Object key ${foundKey}\n`)
     }
     var strestFilename = e.document.fileName;
 
@@ -89,7 +79,7 @@ function request() {
     root = root.replace(/(\\)/g,'/')
     strestFilename = strestFilename.replace(/(c:)/g,'')
     strestFilename = strestFilename.replace(/(\\)/g,'/')
-    let commandExec = `strest ${strestFilename} -k ${strestKey} -l ${root}/strest_history.json -s ${root}/strest_history.json`
+    let commandExec = `strest ${strestFilename} -k ${foundKey} -l ${root}/strest_history.json -s ${root}/strest_history.json`
     outpuChannel.append(`Executing command ${commandExec}\n`)
     cp.exec(commandExec,{
         maxBuffer: 2000 * 1024

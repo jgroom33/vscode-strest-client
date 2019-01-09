@@ -1,16 +1,7 @@
 const { Range } = require('vscode');
-const FIND_KEY_REGEX = /^\s*[\-|\s]?([\w|\s|\~\(|\)]*):.*/;
-
-import {
-  isKey,
-  textIndentations,
-  isUnnecessaryLine,
-  findLineOfClosestKey,
-} from './util';
+const yaml = require('js-yaml');
 
 function parseYaml(editor) {
-  let checkDone = false;
-
   const { document, selection } = editor;
   const selectedLine = document.lineAt(selection.active);
 
@@ -18,27 +9,20 @@ function parseYaml(editor) {
   const replaced  = document.getText(range).replace(/(\rn|\n|\r)/g, '\n')
   const lines = replaced.split('\n');
 
-  // Remove the first line of `---`
-  lines.shift();
-
-  const expectedIndentationLine = isKey(selectedLine.text) ? selectedLine.text : findLineOfClosestKey(selectedLine.text, lines);
-  const expectedLineSpace = textIndentations(expectedIndentationLine);
-
-  return lines
-    .filter(isUnnecessaryLine)
-    .reduce((result, line) => {
-      if (!checkDone) {
-        if (line === expectedIndentationLine) {
-          checkDone = true;
-        }
-        const spaces = textIndentations(line);
-        if (expectedLineSpace >= spaces) {
-          result[spaces] = line.replace(FIND_KEY_REGEX, '$1').replace(/^\s*/, '');
-        }
-      }
-
-      return result;
-    }, {});
+  const yamldoc = yaml.safeLoad(document.getText());
+  const keys = []
+  for (let key in yamldoc.requests) {
+    keys.push(key)
+  }
+  let result = null
+  for (let el of lines.reverse()) {
+    let key_search = el.replace(/\s+/,'').replace(":","")
+    if (keys.includes(key_search)) {
+      result = key_search
+      break
+    }
+  }
+  return result
 }
 
 module.exports = {

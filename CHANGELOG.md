@@ -1,3 +1,6 @@
+## 0.0.7 (2019/1/9)
+* Fix yaml parsing to find closest key
+
 ## 0.0.6 (2019/1/3)
 * fix Could not calculate YAML path error
 

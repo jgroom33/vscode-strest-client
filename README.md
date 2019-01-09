@@ -1,4 +1,4 @@
-# vscode stREST Client
+# stREST Client for VS Code
 
 stREST Client allows you to send HTTP request specified in [stREST](https://github.com/eykrehbein/strest) and view the response in Visual Studio Code directly.
 
@@ -7,6 +7,16 @@ stREST Client allows you to send HTTP request specified in [stREST](https://gith
 * Send __HTTP requests__ in editor and view response (strest_history.json) in a separate pane
 
 ![alt text](images/strest_preview.gif)
+
+Three ways to execute a test:
+
+|   Execution   |                       detail                       |
+| ------------- | -------------------------------------------------- |
+| Right Click   | ![Right Click Context](images/execute-context.png) |
+| stREST Button | ![stREST Button](images/strest-button.png)         |
+| cmd-alt-r     | Mac keyboard Shortcut to execute Call              |
+| ctrl-alt-r    | Windows keyboard Shortcut to execute Call          |
+| Import Curl   | ![Import Curl](images/curl-to-strest.gif)          |
 
 ## License
 

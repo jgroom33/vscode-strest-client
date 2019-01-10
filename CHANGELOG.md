@@ -1,4 +1,7 @@
-## 0.1.0 (2019/1/10)
+## 0.1.1 (2019/1/10)
+* use published curlconverter lib
+
+## 0.1.0 (2019/1/9)
 * Add curlconversion
 * Add context Menus
 

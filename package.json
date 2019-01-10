@@ -87,20 +87,25 @@
       }
     ],
     "menus": {
-      "editor/context": [{
-        "when": "resourceLangId == strest",
-        "command": "strest.curlToStrest",
-        "group": "stREST"
-    },{
-      "when": "resourceLangId == strest",
-      "command": "strest.request",
-      "group": "stREST"
-    }],
-      "editor/title": [{
-        "when": "resourceLangId == strest",
-        "command": "strest.request",
-        "group": "navigation"
-      }]
+      "editor/context": [
+        {
+          "when": "resourceLangId == strest",
+          "command": "strest.curlToStrest",
+          "group": "stREST"
+        },
+        {
+          "when": "resourceLangId == strest",
+          "command": "strest.request",
+          "group": "stREST"
+        }
+      ],
+      "editor/title": [
+        {
+          "when": "resourceLangId == strest",
+          "command": "strest.request",
+          "group": "navigation"
+        }
+      ]
     },
     "keybindings": [
       {
@@ -138,7 +143,7 @@
     "vscode": "^1.0.17"
   },
   "dependencies": {
-    "curlconverter": "jgroom33/curlconverter",
+    "curlconverter": "2.4.0",
     "clipboardy": "1.2.3",
     "fs-extra": "7.0.1",
     "js-yaml": "3.12.1"

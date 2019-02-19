@@ -16,7 +16,7 @@ function parseYaml(editor) {
   }
   let result = null
   for (let el of lines.reverse()) {
-    let key_search = el.replace(/\s+/,'').replace(":","")
+    let key_search = el.replace(/\s+(\S+):.*/,"$1")
     if (keys.includes(key_search)) {
       result = key_search
       break

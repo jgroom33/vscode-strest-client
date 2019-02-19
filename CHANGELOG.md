@@ -1,3 +1,6 @@
+## 0.1.2 (2019/2/18)
+* fix Could not calculate YAML path error
+
 ## 0.1.1 (2019/1/10)
 * use published curlconverter lib
 

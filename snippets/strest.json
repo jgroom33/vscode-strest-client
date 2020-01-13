@@ -3,8 +3,8 @@
         "prefix": "request",
         "body": [
             "request:",
-            "  url: ${1:www.strest.com}",
-            "  method: ${2|GET,POST,DELETE,PUT,PATCH,DELETE|}"
+            "\turl: ${1:www.strest.com}",
+            "\tmethod: ${2|GET,POST,DELETE,PUT,PATCH,DELETE|}"
         ],
         "description": "Add new request"
     },
@@ -12,9 +12,9 @@
         "prefix": "postData",
         "body": [
             "postData:",
-            "  mimeType: ${1|application/json,text/plain|}",
-            "  text:",
-            "    ${2:foo}: ${3:bar}"
+            "\tmimeType: ${1|application/json,text/plain|}",
+            "\ttext:",
+            "\t\t${2:foo}: ${3:bar}"
         ],
         "description": "Adds postData to POST request"
     },
@@ -22,12 +22,12 @@
         "prefix": "validate",
         "body": [
             "validate:",
-            "- jsonpath: status",
-            "  regex: 2\\d+",
-            "- jsonpath: ${1:content.path.to.var}",
-            "  type: ${2|string,boolean,object,number,array,\"null\",string.hex,string.email,string.ip,string.url,string.uri,string.lowercase,string.uppercase|}",
-            "- jsonpath: ${3:content.path.to.var}",
-            "  expect: ${4:expect_value}"
+            "\t- jsonpath: status",
+            "\t  regex: 2\\d+",
+            "\t- jsonpath: ${1:content.path.to.var}",
+            "\t  type: ${2|string,boolean,object,number,array,\"null\",string.hex,string.email,string.ip,string.url,string.uri,string.lowercase,string.uppercase|}",
+            "\t- jsonpath: ${3:content.path.to.var}",
+            "\t  expect: ${4:expect_value}"
         ],  
         "description": "Adds validate Section to request"
     },
@@ -35,8 +35,8 @@
         "prefix": "headers",
         "body": [
             "headers:",
-            "- name: ${1:Authorization}",
-            "  value: ${2:Bearer foo}"
+            "\t- name: ${1:Authorization}",
+            "\t  value: ${2:Bearer foo}"
         ],  
         "description": "Adds headers Section to request"
     },
@@ -44,8 +44,8 @@
         "prefix": "queryString",
         "body": [
             "queryString:",
-            "- name: ${1:query_param}",
-            "  value: ${2:query_value}"
+            "\t- name: ${1:query_param}",
+            "\t  value: ${2:query_value}"
         ],  
         "description": "Adds queryString Section to request"
     },
@@ -53,8 +53,8 @@
         "prefix": "if",
         "body": [
             "if:",
-            "  operand: <$ ${1:some_request.status} $>",
-            "  equals: ${2:expect_value}"
+            "\toperand: <$ ${1:some_request.status} $>",
+            "\tequals: ${2:expect_value}"
         ]
     }
 }

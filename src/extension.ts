@@ -2,6 +2,10 @@ import * as vscode from 'vscode';
 import { workspace, window } from 'vscode';
 import Window = vscode.window;
 import * as fs from 'fs-extra';
+
+import StrestCodeLensProvider from "./strest-code-lens-provider";
+
+
 const curlconverter = require("curlconverter")
 const clipboardy = require('clipboardy');
 const cp = require('child_process')
@@ -16,6 +20,19 @@ export function activate(context: vscode.ExtensionContext) {
     console.log('stREST is now active!');
     vscode.commands.registerCommand('strest.request', request);
     vscode.commands.registerCommand('strest.curlToStrest', curlToStrest);
+
+    let docSelector = {
+        language: "strest",
+        scheme: "file"
+    };
+    
+    // Register our CodeLens provider
+    let codeLensProviderDisposable = vscode.languages.registerCodeLensProvider(
+        docSelector,
+        new StrestCodeLensProvider()
+    );
+
+    context.subscriptions.push(codeLensProviderDisposable);
 }
 
 function getParsedFullKey() {
@@ -46,10 +63,10 @@ var getFullPath = (root, filePath) => {
     return path.resolve(root, filePath);
 }
 
-function request() {
+function request(args) {
 
     let e = Window.activeTextEditor;
-    let foundKey = getParsedFullKey();
+    let foundKey = args || getParsedFullKey();
     let outpuChannel = vscode.window.createOutputChannel("stREST");
     outpuChannel.clear()
     outpuChannel.show(true)

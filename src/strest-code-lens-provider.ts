@@ -10,23 +10,11 @@ class StrestCodeLensProvider implements CodeLensProvider {
     // Each provider requires a provideCodeLenses function which will give the various documents
     // the code lenses
     async provideCodeLenses(document: TextDocument): Promise<CodeLens[]> {
-        console.log('registering code lens')
-        // Define where the CodeLens will exist
-        let topOfDocument = new Range(0, 0, 0, 0);
+        console.log('strest: registering code lens');
 
-        // Define what command we want to trigger when activating the CodeLens
-        let c: Command = {
-            command: "strest.request",
-            title: "Run all tests", 
-        };
-    
-        let codeLensTop = new CodeLens(topOfDocument, c);
-
-        let eachTest = this.getCodeLensLines(document);
-   
-        eachTest.push(codeLensTop);
-    
-        return eachTest;
+        let codeLenses = this.getCodeLensLines(document);
+       
+        return codeLenses;
     }
 
     getCodeLensLines(document: TextDocument): CodeLens[] {
@@ -46,7 +34,7 @@ class StrestCodeLensProvider implements CodeLensProvider {
 
                 let c: Command = {
                     command: "strest.request",
-                    title: `Run test`,
+                    title: `▶ Run test`,
                     arguments: [ lineTestMatch[1] ]
                 };
 

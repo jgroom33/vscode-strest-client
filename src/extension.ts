@@ -21,13 +21,13 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand('strest.request', request);
     vscode.commands.registerCommand('strest.curlToStrest', curlToStrest);
 
-    let docSelector = {
+    const docSelector = {
         language: "strest",
         scheme: "file"
     };
     
     // Register our CodeLens provider
-    let codeLensProviderDisposable = vscode.languages.registerCodeLensProvider(
+    const codeLensProviderDisposable = vscode.languages.registerCodeLensProvider(
         docSelector,
         new StrestCodeLensProvider()
     );

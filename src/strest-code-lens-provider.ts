@@ -12,33 +12,33 @@ class StrestCodeLensProvider implements CodeLensProvider {
     async provideCodeLenses(document: TextDocument): Promise<CodeLens[]> {
         console.log('strest: registering code lens');
 
-        let codeLenses = this.getCodeLensLines(document);
+        const codeLenses = this.getCodeLensLines(document);
        
         return codeLenses;
     }
 
     getCodeLensLines(document: TextDocument): CodeLens[] {
         // Each test
-        let x: CodeLens[] = [];
-        let testLineRegEx = new RegExp("^\\s\\s(\\w*)+:.*$");
+        const x: CodeLens[] = [];
+        const testLineRegEx = new RegExp("^\\s\\s(\\w*)+:.*$");
 
         // Skip the first 2 lines
         for (let line = 2; line < document.lineCount; line++)
         {
-            let lineText = document.lineAt(line).text;
-            let lineTestMatch = lineText.match(testLineRegEx);
+            const lineText = document.lineAt(line).text;
+            const lineTestMatch = lineText.match(testLineRegEx);
             if (lineTestMatch !== null && lineTestMatch.index !== undefined)
             {
 
-                let loc = new Range(line, 0, line, 0);
+                const loc = new Range(line, 0, line, 0);
 
-                let c: Command = {
+                const c: Command = {
                     command: "strest.request",
                     title: `▶ Run test`,
                     arguments: [ lineTestMatch[1] ]
                 };
 
-                let codeLensLine = new CodeLens(loc, c);
+                const codeLensLine = new CodeLens(loc, c);
                 x.push(codeLensLine);
             }
         }
